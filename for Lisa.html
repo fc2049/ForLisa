@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter to My Friend</title>
+    <style>
+        /* Importing a fun, readable font */
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+        /* Main styling */
+        body {
+            font-family: 'Comic Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #FFDEAD, #FFD1DC, #ADD8E6);
+            color: #333;
+            padding: 20px;
+        }
+
+        /* Sprinkle effect */
+        .sprinkle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #FFD700, #FF69B4);
+            border-radius: 50%;
+            animation: sprinkle 0.6s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* Heart effect */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #FF69B4, #FF1493);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: rotate(-45deg);
+            animation: heart 0.8s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* Star effect */
+        .star {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #FFD700;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: star 0.8s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* Sprinkle animation */
+        @keyframes sprinkle {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-50px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Heart animation */
+        @keyframes heart {
+            from {
+                transform: scale(0) rotate(-45deg);
+                opacity: 1;
+            }
+            to {
+                transform: scale(2) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Star animation */
+        @keyframes star {
+            from {
+                transform: scale(0) rotate(0);
+                opacity: 1;
+            }
+            to {
+                transform: scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container styling */
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            border: 3px solid #ff69b4;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .letter.hidden,
+        #mysteryMessages.hidden {
+            display: none;
+        }
+
+        /* Button styling */
+        button {
+            margin: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #ff69b4;
+            color: #fff;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff85c0;
+            transform: scale(1.1);
+        }
+
+        /* Message and signature styling */
+        #letterContent {
+            font-size: 18px;
+            color: #333;
+            background: linear-gradient(to right, #FF69B4, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            opacity: 0.9;
+        }
+        .signature {
+            margin-top: 20px;
+            color: #ff1493;
+        }
+        #mysteryMessages {
+            font-size: 18px;
+            color: #ff4500;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* Playlist styling */
+        .playlist {
+            margin-top: 20px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 10px;
+            }
+
+            button {
+                width: 100%;
+                padding: 15px;
+                font-size: 18px;
+            }
+
+            #letterContent {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Container -->
+    <div class="container">
+        <!-- Button to open the letter -->
+        <button id="openLetterBtn">📜 Open the Letter</button>
+
+        <!-- Interactive Letter with custom message -->
+        <div id="letter" class="letter hidden">
+            <p id="letterContent">
+                Dear Lisa,<br><br>
+                We met on Speaky to exchange languages, but it turned out to be so much more. I didn’t just find the best English teacher; I found a wonderful friend. <br><br>
+                Even though our time zones and routines sometimes make it hard to connect, I truly enjoy every moment we get to talk. You make my days brighter, and I hope we can continue this friendship for years to come.<br><br>
+                Each day with you is special, and that’s why I made this for you. Thank you for everything! 🌸<br><br>
+                Your friend, Felipe
+            </p>
+            <button id="luckyBtn">💫 I’m feeling lucky today</button>
+            <div id="mysteryMessages" class="hidden"></div>
+        </div>
+
+        <!-- Friendship Section Buttons -->
+        <div class="friendship-section">
+            <button onclick="showMessage(1)">🎵 Message 1</button>
+            <button onclick="showMessage(2)">🎓 Message 2</button>
+            <button onclick="showMessage(3)">🤝 Message 3</button>
+            <button onclick="showMessage(4)">💧 Message 4</button>
+            <button onclick="showMessage(5)">😊 Message 5</button>
+        </div>
+
+        <!-- Final Text -->
+        <h2 class="signature">From your Brazilian friend, Felipe 🇧🇷</h2>
+
+        <!-- Spotify Playlist -->
+        <div class="playlist">
+            <h3>My Playlist 🎶</h3>
+            <iframe src="https://open.spotify.com/embed/playlist/2FeEpDUvToXzAP2FMkkD6W?si=klkUE1Q_QfaahnN8G-BNLA&pi=3Y3cXbNkRImNb" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Toggle the letter visibility
+        document.getElementById("openLetterBtn").addEventListener("click", function() {
+            document.getElementById("letter").classList.toggle("hidden");
+            createSprinkles(event);
+        });
+
+        // Array of 100 unique lucky messages
+        const luckyMessages = [
+            "You’re a beautiful soul, shining brighter every day.",
+            "Today’s the day to chase your dreams!",
+"You’re a beautiful soul, shining brighter every day.",
+            "Today’s the day to chase your dreams!",
+            "Someone thinks of you and smiles.",
+            "Every day with you in it is a lucky day.",
+            "Magic happens when you least expect it.",
+            "You are a rainbow in someone’s life.",
+            "Today’s adventure is around the corner!",
+            "Your kindness is your superpower.",
+            "The world is lucky to have you.",
+            "Joy is just around the bend.",
+            "You make life feel like a dance.",
+            "Believe in the beautiful journey ahead.",
+            "Good vibes are flowing your way!",
+            "Your laughter is sunshine to others.",
+            "Something amazing is about to happen.",
+            "You light up the world!",
+            "Each day, you shine a little brighter.",
+            "You bring joy wherever you go.",
+            "Your presence is a gift to those around you.",
+            "Today is full of happy surprises.",
+            "Life is better with you in it.",
+            "Adventure awaits you today!",
+            "Your heart is a source of happiness.",
+            "Today, sparkle even brighter!",
+            "You’re exactly where you need to be.",
+            "Life is sweeter with your laughter.",
+            "Big dreams are coming your way!",
+            "The best is yet to come.",
+            "You are loved beyond measure.",
+            "Today, you are unstoppable!",
+            "A new joy is around the corner.",
+            "Happiness is in your heart.",
+            "You bring out the best in others.",
+            "Today is your day to shine.",
+            "The world needs more of your kindness.",
+            "Every step you take is a blessing.",
+            "Life is more colorful with you in it.",
+            "Good fortune surrounds you.",
+            "You are amazing just as you are.",
+            "Your heart knows the way.",
+            "Today, you are luckier than ever.",
+            "Happiness dances within you.",
+            "Life shines brighter because of you.",
+            "Good things are waiting to find you.",
+            "You inspire others every day.",
+            "Today is filled with magic.",
+            "You’re an incredible person!",
+            "Life’s blessings flow your way.",
+            "You are a beacon of hope.",
+            "Today, something wonderful awaits.",
+            "The world needs your light.",
+            "Your spirit is strong and bright.",
+            "Today holds a special surprise.",
+            "Your dreams are blossoming.",
+            "Good things are in store for you.",
+            "You radiate positivity.",
+            "The world shines because of you.",
+            "Today is a gift just for you.",
+            "Your smile lights up lives.",
+            "Hope fills the air today.",
+            "You make everything brighter.",
+            "Today brings new adventures.",
+            "You are a light in the darkness.",
+            "Wonderful things await you.",
+            "Life’s best moments are yours.",
+            "Today, happiness finds you.",
+            "The universe celebrates you.",
+            "Today, you’re unstoppable!",
+            "You make magic happen.",
+            "Good luck follows you.",
+            "Your joy is contagious.",
+            "Today brings a little miracle.",
+            "You are worthy of all good things.",
+            "Every moment is a new blessing.",
+            "Today, follow your heart!",
+            "The world is better with you in it.",
+            "Today, you shine like a star.",
+            "The best adventures are ahead!",
+            "Today, life sparkles for you.",
+            "Good fortune follows you.",
+            "Joyful surprises await.",
+            "You are the reason for someone’s smile.",
+            "Life brings you good things.",
+            "You are a blessing to all.",
+            "Today, you are radiant!",
+            "Believe in the beauty of today.",
+            "Good things find you effortlessly.",
+            "The world dances with you.",
+            "Today, happiness is yours.",
+            "You bring out the best in life.",
+            "Today is your lucky day!",
+            "You are a miracle in motion.",
+            "Life overflows with blessings.",
+            "You fill the world with joy.",
+            "Good luck shines on you.",
+            "Today is full of wonder!",
+            "Your joy lights up the day.",
+            "Life’s blessings flow to you.",
+            "You radiate love and light.",
+            "The universe smiles on you today.",
+            "Today holds something special."
+            // (Continued with all 100 unique messages from previous)
+        ];
+
+        // Show random lucky message on button click
+        document.getElementById("luckyBtn").addEventListener("click", function(event) {
+            const randomMessage = luckyMessages[Math.floor(Math.random() * luckyMessages.length)];
+            const mysteryMessages = document.getElementById("mysteryMessages");
+            mysteryMessages.textContent = randomMessage;
+            mysteryMessages.classList.remove("hidden");
+            createRandomEffect(event);
+        });
+
+        // Show messages when friendship buttons are clicked
+        function showMessage(index) {
+            const messages = [
+                "Message 1: Thanks for all the great times together!",
+                "Message 2: Keep shining, you’re doing amazing.",
+                "Message 3: Together, we’re unstoppable!",
+                "Message 4: I appreciate you so much!",
+                "Message 5: You make life sweeter. 😊"
+            ];
+            alert(messages[index - 1]);
+            createRandomEffect(event);
+        }
+
+        // Function to create random effects (sprinkles, hearts, stars)
+        function createRandomEffect(event) {
+            const effects = ['sprinkle', 'heart', 'star'];
+            const effectType = effects[Math.floor(Math.random() * effects.length)];
+            const effect = document.createElement('div');
+            effect.classList.add(effectType);
+
+            if (effectType === 'sprinkle') {
+                effect.style.width = '8px';
+                effect.style.height = '8px';
+                effect.style.background = 'radial-gradient(circle, #FFD700, #FF69B4)';
+            } else if (effectType === 'heart') {
+                effect.style.width = '20px';
+                effect.style.height = '20px';
+                effect.style.background = 'radial-gradient(circle, #FF69B4, #FF1493)';
+            } else if (effectType === 'star') {
+                effect.style.width = '10px';
+                effect.style.height = '10px';
+                effect.style.backgroundColor = '#FFD700';
+            }
+
+            effect.style.left = `${event.clientX + Math.random() * 100 - 50}px`;
+            effect.style.top = `${event.clientY + Math.random() * 100 - 50}px`;
+            document.body.appendChild(effect);
+
+            effect.addEventListener('animationend', () => effect.remove());
+        }
+    </script>
+</body>
+</html>
